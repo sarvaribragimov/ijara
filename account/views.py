@@ -34,36 +34,22 @@ def register(request):
         else:
             return render(request, 'account/register.html', {'form': form})
 
-# logout
+
 def login(request):
-    if request.method == 'POST':
-        phone_number = request.POST.get('phone_number')
-        password = request.POST.get('password')
-        user = authenticate(request, phone_number=phone_number, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('account:homepage')
-        else:
-            error_message = 'Invalid username or password'
-            return render(request, 'account/login.html', {'error_message': error_message})
-    else:
-        return render(request, 'account/login.html')
+    if request.user.is_authenticated:
+        return redirect("account:homepage")
 
-# def login(request):
-#     if request.user.is_authenticated:
-#         return redirect("account:index_page")
+    if request.method != "POST":
+        return render(request, "account/login.html")
 
-#     if request.method != "POST":
-#         return render(request, "account/login.html")
-
-#     phone_number = request.POST["phone_number"]
-#     password = request.POST["password"]
-#     if user := auth.authenticate(request, phone_number= phone_number, password=password):
-#         auth.login(request, user)
-#         messages.success(request, "You are now logged in")
-#         return redirect("account:index_page")
-#     messages.warning(request, "Invalid credentials")
-#     return redirect("account:login")
+    phone_number = request.POST["phone_number"]
+    password = request.POST["password"]
+    if user := auth.authenticate(request, phone_number= phone_number, password=password):
+        auth.login(request, user)
+        messages.success(request, "You are now logged in")
+        return redirect("account:index_page")
+    messages.warning(request, "Invalid credentials")
+    return redirect("account:login")
 
 def logout_user(request):
     logout(request)
