@@ -1,11 +1,10 @@
 
-from django.contrib import messages
-from django.contrib.auth import login
-from django.shortcuts import redirect, render
+from django.contrib import auth, messages
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password
+from django.shortcuts import redirect, render
+
 from .forms import RegistrForm
-from django.contrib.auth import logout
-from django.shortcuts import redirect
 
 
 def register(request):
@@ -31,11 +30,40 @@ def register(request):
     
             messages.success(request, 'You have singed up successfully.')
             # login(request, new_form)
-            return redirect('account:homepage')
+            return redirect('account:login')
         else:
             return render(request, 'account/register.html', {'form': form})
 
 # logout
+def login(request):
+    if request.method == 'POST':
+        phone_number = request.POST.get('phone_number')
+        password = request.POST.get('password')
+        user = authenticate(request, phone_number=phone_number, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('account:homepage')
+        else:
+            error_message = 'Invalid username or password'
+            return render(request, 'account/login.html', {'error_message': error_message})
+    else:
+        return render(request, 'account/login.html')
+
+# def login(request):
+#     if request.user.is_authenticated:
+#         return redirect("account:index_page")
+
+#     if request.method != "POST":
+#         return render(request, "account/login.html")
+
+#     phone_number = request.POST["phone_number"]
+#     password = request.POST["password"]
+#     if user := auth.authenticate(request, phone_number= phone_number, password=password):
+#         auth.login(request, user)
+#         messages.success(request, "You are now logged in")
+#         return redirect("account:index_page")
+#     messages.warning(request, "Invalid credentials")
+#     return redirect("account:login")
 
 def logout_user(request):
     logout(request)

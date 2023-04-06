@@ -8,7 +8,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     user_permissions = models.ManyToManyField(Permission, related_name='account_permissions', blank=True)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    phone_number = models.CharField(max_length=100)
+    phone_number = models.CharField(max_length=100,unique=True)
     area = models.TextField()
         
     USERNAME_FIELD = "phone_number"
