@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+
+Register
+
+{% endblock %}
+
+
+{% block content %}
+
+
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-conten padding-y" style="min-height:84vh">
+
+
+
+    <!-- ============================ COMPONENT LOGIN   ================================= -->
+        <div class="card mx-auto" style="max-width: 800px; margin-top:100px;">
+
+
+          {% include 'includes/message.html' %}
+
+
+          <div class="card-body">
+          <h4 class="card-title mb-8">Elon berish</h4>
+          <form method="post" action="{% url 'post:saveform' %}">
+            {% csrf_token %}
+            <div class="row">
+                          
+                <div class="form-group col-sm-6">
+                    <label>price</label>
+                    {{form.price}}
+                    {{form.price.errors}}
+                </div>                
+                {% comment %} <div class="form-group col-sm-6">
+                    <label>image</label>
+                    {{form.image}}
+                    {{form.image.errors}}
+                </div>          {% endcomment %}
+                <div class="form-group col-sm-12">
+                    <label>title</label>
+                    {{form.title}}
+                    {{form.title.errors}}
+                </div>         
+                {% comment %} <div class="form-group col-sm-12">
+                    <label>category</label>
+                    {{form.category}}
+                    {{form.category.errors}}
+                </div>          {% endcomment %}
+                <div class="form-group col-sm-14">
+                    <label>description</label>
+                    {{form.description}}
+                    {{form.description.errors}}
+                </div>         
+                <div class="form-group col-sm-6">
+                    <label>number_rooms</label>
+                    {{form.number_rooms}}
+                    {{form.number_rooms.errors}}
+                </div>                
+                <div class="form-group col-sm-6">
+                    <label>total_area</label>
+                    {{form.total_area}}
+                    {{form.total_area.errors}}
+                </div>                
+                <div class="form-group col-sm-6">
+                    <label>living_space</label>
+                    {{form.living_space}}
+                    {{form.living_space.errors}}
+                </div>         
+                <div class="form-group col-sm-6">
+                    <label>kitchen_area</label>
+                    {{form.kitchen_area}}
+                    {{form.kitchen_area.errors}}
+                </div>         
+                <div class="form-group col-sm-6">
+                    <label>floor</label>
+                    {{form.floor}}
+                    {{form.floor.errors}}
+                </div>         
+                <div class="form-group col-sm-6">
+                    <label>house_floor_plan</label>
+                    {{form.house_floor_plan}}
+                    {{form.house_floor_plan.errors}}
+                </div>         
+
+
+                <input type="submit" class="btn btn-primary btn-block" value="Add">
+
+                
+            </div> <!-- row.// -->	
+        </form>
+          </div> <!-- card-body.// -->
+        </div> <!-- card .// -->
+    
+         
+  
+    </section>
+   
+{% endblock %} 
