@@ -5,11 +5,11 @@ from django.urls import reverse
 # Create your models here.
 
 class Category(models.Model):
-    name = models.CharField(max_length=100)
-    slug = AutoSlugField(populate_from='name', unique=True)
+    name = models.CharField(max_length=100,unique=True)
+    slug = AutoSlugField(populate_from='name', unique=True,max_length=100)
     class Meta:
-        verbose_name = ("Category")
-        verbose_name_plural = ("Categorys")
+        verbose_name = ("category")
+        verbose_name_plural = ("categories")
 
     def __str__(self):
         return self.name
@@ -17,8 +17,7 @@ class Category(models.Model):
         return reverse("post:post_list_view", args=[self.slug])
 
 
-    # def get_absolute_url(self):
-    #     return reverse("Category_detail", kwargs={"pk": self.pk})
+
 class Repair(models.Model):
     name = models.CharField(max_length=100)
 
@@ -31,7 +30,7 @@ class Kvartera(models.Model):
     #     ('yuq','yuq'),
     # )
     # user = models.ForeignKey(Account,on_delete=models.CASCADE)
-    # image = models.ImageField(upload_to='kvartera')
+    image = models.ImageField(upload_to='kvartera')
     title = models.CharField(max_length=100)
     slug = AutoSlugField(populate_from='title', unique=True)
     category = models.ForeignKey(Category,on_delete=models.CASCADE)
