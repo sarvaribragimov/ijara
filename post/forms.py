@@ -1,5 +1,6 @@
 from django import forms
-from .models import Kvartera
+from post.models import Kvartera
+
 
 class KvarteraForm(forms.ModelForm):
     

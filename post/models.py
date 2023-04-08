@@ -1,20 +1,24 @@
 from django.db import models
 from account.models import Account
+from autoslug import AutoSlugField
+from django.urls import reverse
 # Create your models here.
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
-    
-
+    slug = AutoSlugField(populate_from='name', unique=True)
     class Meta:
         verbose_name = ("Category")
         verbose_name_plural = ("Categorys")
 
     def __str__(self):
         return self.name
-
     def get_absolute_url(self):
-        return reverse("Category_detail", kwargs={"pk": self.pk})
+        return reverse("post:post_list_view", args=[self.slug])
+
+
+    # def get_absolute_url(self):
+    #     return reverse("Category_detail", kwargs={"pk": self.pk})
 class Repair(models.Model):
     name = models.CharField(max_length=100)
 
@@ -29,7 +33,8 @@ class Kvartera(models.Model):
     # user = models.ForeignKey(Account,on_delete=models.CASCADE)
     # image = models.ImageField(upload_to='kvartera')
     title = models.CharField(max_length=100)
-    # category = models.ForeignKey(Category,on_delete=models.CASCADE)
+    slug = AutoSlugField(populate_from='title', unique=True)
+    category = models.ForeignKey(Category,on_delete=models.CASCADE)
     description = models.TextField()
     price = models.IntegerField()
     number_rooms = models.IntegerField()
@@ -38,6 +43,7 @@ class Kvartera(models.Model):
     kitchen_area = models.PositiveIntegerField()
     floor = models.PositiveIntegerField()
     house_floor_plan = models.PositiveIntegerField()
+    is_available = models.BooleanField(default=True, help_text="Is product available?")
     # year_of_construction = models.DateField()
     # furniture = models.CharField(max_length=50,choices=STATUS)
     # repair = models.ForeignKey(Repair,on_delete=models.CASCADE)
@@ -49,7 +55,14 @@ class Kvartera(models.Model):
         verbose_name_plural = ("kvarteras")
 
     def __str__(self):
-        return self.name
-
+        return self.title
+    
+    
     def get_absolute_url(self):
-        return reverse("kvartera_detail", kwargs={"pk": self.pk})
+        return reverse("post:post_list_view", args=[self.category.slug, self.slug])
+
+    def get_image_url(self):
+        return self.image.url if self.image and hasattr(self.image, "url") else "#"
+
+    # def get_absolute_url(self):
+    #     return reverse("kvartera_detail", kwargs={"pk": self.pk})
