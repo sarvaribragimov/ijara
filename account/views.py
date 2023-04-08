@@ -3,7 +3,7 @@ from django.contrib import auth, messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import redirect, render
-
+from post.models import Kvartera,Category
 from .forms import RegistrForm
 
 
@@ -58,7 +58,15 @@ def logout_user(request):
     
 
 
-def HomePage(request):
-    return render(request, "index.html")
+# def HomePage(request):
+#     return render(request, "index.html")
   
 
+def HomePage(request, category_slug=None):
+    
+    posts = Kvartera.objects.filter(is_available=True)
+    if category_slug:  
+        category = Category.objects.get(slug=category_slug)
+        posts = Kvartera.objects.filter(category=category, is_available=True)
+
+    return render(request, "index.html", {"posts": posts,})

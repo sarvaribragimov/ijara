@@ -63,5 +63,26 @@ class Kvartera(models.Model):
     def get_image_url(self):
         return self.image.url if self.image and hasattr(self.image, "url") else "#"
 
-    # def get_absolute_url(self):
-    #     return reverse("kvartera_detail", kwargs={"pk": self.pk})
+class StudentWork(models.Model):
+    image = models.ImageField(upload_to='kvartera')
+    title = models.CharField(max_length=100)
+    slug = AutoSlugField(populate_from='title', unique=True)
+    description = models.TextField()
+    price = models.IntegerField()
+    addrees = models.TextField()
+    is_available = models.BooleanField(default=True, help_text="Is product available?")
+   
+
+    class Meta:
+        verbose_name = ("Student Work")
+        verbose_name_plural = ("Student Works")
+
+    def __str__(self):
+        return self.title
+    
+    
+    def get_absolute_url(self):
+        return reverse("post:post_list_view", args=[self.category.slug, self.slug])
+
+    def get_image_url(self):
+        return self.image.url if self.image and hasattr(self.image, "url") else "#"

@@ -2,7 +2,7 @@
 from .views.post import KvarteraView
 from .views.post_list import saveform,post_detail_view,post_list_view
 from django .urls import path
-from .category_processors import all_categories
+from .category_processors import all_categories,all_works
 app_name = "post"  
 
 urlpatterns = [
@@ -13,4 +13,5 @@ urlpatterns = [
     path('post-list/<slug:category>/<slug:subcategory>/', post_list_view, name='post_list_view'),
     path('post-detail/',post_detail_view,name="post_detail_view"),
     path('categories/', all_categories, name='categories'),
+    path('categories/', all_works, name='all_works'),
 ]
