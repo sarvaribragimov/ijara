@@ -146,10 +146,10 @@ Home
                         <a href="{{ post.get_absolute_url }}" class="title">{{ post.title }}</a>
                         <div class="price-wrap mt-2">
                             <span class="price">${{ post.price }}</span>
-                            <del class="price-old">${{ post.price }}</del>
+                            
                         </div> <!-- price-wrap.// -->
                     </div>
-                    <a href="{{ post.get_absolute_url }}" class="btn btn-block btn-success">View to cart</a>
+                    <a href="{{ post.get_absolute_url }}" class="btn btn-block btn-success">elonni ko'rish</a>
                 </figcaption>
             </figure>
         </div> <!-- col.// -->
@@ -157,27 +157,6 @@ Home
         
     </div> <!-- row end.// -->
     
-    
-    <nav class="mt-4" aria-label="Page navigation sample">
-    {% if products.has_other_pages %}
-        <ul class="pagination">
-            {% if products.has_previous %}
-            <li class="page-item"><a class="page-link" href="?page={{products.previous_page_number}}">{% trans "Previous" %}</a></li>
-            {% endif %}
-
-            {% for page in products.paginator.page_range %}
-                 {% if products.number == page %}
-                    <li class="page-item active"><a class="page-link" href="?page={{page}}">{{page}}</a></li>
-                {% else %}
-                <li class="page-item"><a class="page-link" href="?page={{page}}">{{page}}</a></li>
-                {% endif %}
-            {% endfor %}
-            {% if products.has_next %}
-            <li class="page-item"><a class="page-link" href="?page={{products.next_page_number}}">{% trans "Next" %}</a></li>
-            {% endif %}
-        </ul>
-    {% endif %}
-    </nav>
     
         </main> <!-- col.// -->
     

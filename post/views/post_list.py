@@ -16,11 +16,9 @@ def post_list_view(request, category_slug=None):
 
 def post_detail_view(request, category_slug, product_slug):
     
-    product = Kvartera.objects.get(category__slug=category_slug, slug=product_slug)
-    product_images = Kvartera.images.all()
+    post = Kvartera.objects.get(category__slug=category_slug, slug=product_slug)
     context = {
-        "product": product,
-        "product_images": product_images,
+        "post": post,
     }
     return render(request, "post/post_detail.html", context)
 
@@ -38,6 +36,7 @@ def saveform(request):
             kvartera.category = category
             kvartera.price = form.cleaned_data['price']
             kvartera.image = form.cleaned_data['image']
+            kvartera.addrees = form.cleaned_data['addrees']
             kvartera.save()
             
     else:

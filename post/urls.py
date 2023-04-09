@@ -8,10 +8,10 @@ app_name = "post"
 urlpatterns = [
     path('list/',KvarteraView,name='kvarteraview'),
     path("saveform/", saveform, name="saveform"),
-    path("", post_list_view, name="post_list_view"),
+    path("list", post_list_view, name="post_list_view"),
     path("category/<slug:category_slug>/", post_list_view, name="post_list_view"),
     path('post-list/<slug:category>/<slug:subcategory>/', post_list_view, name='post_list_view'),
-    path('post-detail/',post_detail_view,name="post_detail_view"),
+    path("<slug:category_slug>/<slug:product_slug>/", post_detail_view, name="post_detail_view"),
     path('categories/', all_categories, name='categories'),
     path('categories/', all_works, name='all_works'),
 ]

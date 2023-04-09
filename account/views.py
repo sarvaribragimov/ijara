@@ -22,6 +22,7 @@ def register(request):
             username = first_name  # get username from email
             password = form.cleaned_data.get("password")
             
+            
             new_form.username = username
             new_form.phone_number = phone_number
             new_form.set_password(password)
@@ -29,7 +30,10 @@ def register(request):
             new_form.save()
     
             messages.success(request, 'You have singed up successfully.')
-            # login(request, new_form)
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('account:login')
             return redirect('account:login')
         else:
             return render(request, 'account/register.html', {'form': form})
@@ -44,12 +48,13 @@ def login(request):
 
     phone_number = request.POST["phone_number"]
     password = request.POST["password"]
-    if user := auth.authenticate(request, phone_number= phone_number, password=password):
+    if user := auth.authenticate(request, phone_number=phone_number, password=password):
         auth.login(request, user)
         messages.success(request, "You are now logged in")
         return redirect("account:index_page")
     messages.warning(request, "Invalid credentials")
     return redirect("account:login")
+
 
 def logout_user(request):
     logout(request)
@@ -58,9 +63,7 @@ def logout_user(request):
     
 
 
-# def HomePage(request):
-#     return render(request, "index.html")
-  
+
 
 def HomePage(request, category_slug=None):
     

@@ -43,6 +43,7 @@ class Kvartera(models.Model):
     floor = models.PositiveIntegerField()
     house_floor_plan = models.PositiveIntegerField()
     is_available = models.BooleanField(default=True, help_text="Is product available?")
+    addrees = models.TextField()
     # year_of_construction = models.DateField()
     # furniture = models.CharField(max_length=50,choices=STATUS)
     # repair = models.ForeignKey(Repair,on_delete=models.CASCADE)
@@ -58,7 +59,7 @@ class Kvartera(models.Model):
     
     
     def get_absolute_url(self):
-        return reverse("post:post_list_view", args=[self.category.slug, self.slug])
+        return reverse("post:post_detail_view", args=[self.category.slug, self.slug])
 
     def get_image_url(self):
         return self.image.url if self.image and hasattr(self.image, "url") else "#"

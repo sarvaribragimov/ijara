@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+Home
+{% endblock %}
+{% block content %}
+
+<link href="{% static 'css/rate.css' %}" rel="stylesheet" type="text/css"/>
+
+
+<section class="section-content padding-y bg">
+    <div class="container">
+    
+    <div class="card">
+        <div class="row no-gutters">
+            <aside class="col-md-6">
+                <article class="gallery-wrap"> 
+                    <div class="img-big-wrap mainImage">
+                    {% if product.image %}
+                        <a href="{{ post.get_image_url}}"><img src="{{ post.get_image_url}}" alt="Product Picture"></a>
+                    {% else %}
+                        <a href="{% static 'images/no-image.png' %}"><img src="{% static 'images/no-image.png' %}" alt="Product Picture"></a>
+                    {% endif %}
+                    </div> 
+                    
+                </article> 
+            </aside>
+    <main class="col-md-6 border-left">
+    <article class="content-body">
+    
+    <h2 class="title">{{post.title}}  </h2>
+
+    <div class="mb-3"> 
+        <var class="price h4">{{ post.price }}$</var> 
+    </div> 
+    <p>
+        {{ post.description }} <br/>
+        uy raqami: {{ post.number_rooms }} umumiy maydon: {{post.total_area }}
+        yashash  maydon:{{post.living_space}} <br/>
+        oshxona maydoni:{{post.kitchen_area}}
+        qavati:{{post.floor}}
+         uy qavatliligi:{{post.house_floor_plan}}
+    </p>    
+
+    <button type="submit" class="btn  btn-primary"> <span class="text">xabar junatish</span> <i class="fa-solid fa-messages fa-beat" style="color: #d6f109;"></i>  </button>
+    <button type="submit" class="btn  btn-primary"> <span class="text">Qo'ng'iroq qilish</span> <i class="fa-sharp fa-solid fa-phone fa-bounce" style="color: #d8f40b;"></i></i>  </button> 
+    </form>    
+    </section>
+{% endblock %} 
