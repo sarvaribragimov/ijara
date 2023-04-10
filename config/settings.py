@@ -41,8 +41,9 @@ INSTALLED_APPS = [
     'post',
     'crispy_forms',
 
-
 ]
+
+AUTH_USER_MODEL = "account.Account"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

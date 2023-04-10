@@ -7,7 +7,6 @@ from .models import Kvartera, Category
 class KvarteraForm(forms.ModelForm):
     category = ModelChoiceField(queryset=Category.objects.all(), to_field_name='id')
 
-    
     class Meta:
         model = Kvartera
         fields = "__all__"

@@ -9,7 +9,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=100,unique=True)
-    area = models.TextField()
+    
 
     date_joined = models.DateTimeField(verbose_name="date joined", auto_now_add=True)
     last_login = models.DateTimeField(verbose_name="last login", auto_now=True)
@@ -19,7 +19,7 @@ class Account(AbstractBaseUser, PermissionsMixin):
     is_superuser = models.BooleanField(default=False)
 
     USERNAME_FIELD = "phone_number"
-    REQUIRED_FIELDS = ["first_name", "lastname"]
+    REQUIRED_FIELDS = ["first_name", "last_name"]
 
 
     objects = AccoutManager()
@@ -37,3 +37,4 @@ class Account(AbstractBaseUser, PermissionsMixin):
     class Meta:
         verbose_name = "Account"
         verbose_name_plural = "Accounts"
+

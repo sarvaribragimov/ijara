@@ -3,7 +3,8 @@ from account.models import Account
 from autoslug import AutoSlugField
 from django.urls import reverse
 # Create your models here.
-
+from django.contrib.auth.models import User
+from .file_renamer import PathAndRename
 class Category(models.Model):
     name = models.CharField(max_length=100,unique=True)
     slug = AutoSlugField(populate_from='name', unique=True,max_length=100)
@@ -23,14 +24,15 @@ class Repair(models.Model):
 
     def __str__(self):
         return self.name
-    
+path_and_rename = PathAndRename("posts")    
 class Kvartera(models.Model):
     # STATUS = (
     #     ('ha','ha'),
     #     ('yuq','yuq'),
     # )
-    # user = models.ForeignKey(Account,on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='kvartera')
+   
+    # user = models.OneToOneField(Account,on_delete=models.CASCADE)
+    image = models.ImageField(upload_to=path_and_rename, blank=True, null=True)
     title = models.CharField(max_length=100)
     slug = AutoSlugField(populate_from='title', unique=True)
     category = models.ForeignKey(Category,on_delete=models.CASCADE)

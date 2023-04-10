@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib.auth.models import User
 
 from django.shortcuts import redirect
 from ..models import Kvartera,Category
@@ -8,14 +9,10 @@ def post_list_view(request, category_slug=None):
         if category_slug:  
             category = Category.objects.get(slug=category_slug)
             posts = Kvartera.objects.filter(category=category, is_available=True)
-
-
         return render(request, "post/post.html", {"posts": posts,})
   
 
-
-def post_detail_view(request, category_slug, product_slug):
-    
+def post_detail_view(request, category_slug, product_slug):   
     post = Kvartera.objects.get(category__slug=category_slug, slug=product_slug)
     context = {
         "post": post,
@@ -54,7 +51,6 @@ def saveform(request):
         model.price = request.POST['price']
         model.image = request.POST['image']
         model.total_area = request.POST['total_area']
-        
         model.description = request.POST['description']
         model.living_space = request.POST['living_space']
         model.number_rooms = request.POST['number_rooms']
@@ -62,9 +58,6 @@ def saveform(request):
         model.floor = request.POST['floor']
         model.house_floor_plan = request.POST['house_floor_plan']
         # model.year_of_construction = request.POST['year_of_construction']
-        print(request.POST.get('title'))
-        
-    
         model.save()    
         return redirect('account:homepage')
     return redirect("post:kvarteraview")
