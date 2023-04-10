@@ -26,10 +26,10 @@ class Repair(models.Model):
         return self.name
 path_and_rename = PathAndRename("posts")    
 class Kvartera(models.Model):
-    # STATUS = (
-    #     ('ha','ha'),
-    #     ('yuq','yuq'),
-    # )
+    STATUS = (
+        ('ha','ha'),
+        ('yuq','yuq'),
+    )
    
     # user = models.OneToOneField(Account,on_delete=models.CASCADE)
     image = models.ImageField(upload_to=path_and_rename, blank=True, null=True)
@@ -49,7 +49,7 @@ class Kvartera(models.Model):
     # year_of_construction = models.DateField()
     # furniture = models.CharField(max_length=50,choices=STATUS)
     # repair = models.ForeignKey(Repair,on_delete=models.CASCADE)
-    # vositachilik_haqi = models.CharField(max_length=100,choices=STATUS)
+    vositachilik_haqi = models.CharField(max_length=100,choices=STATUS)
     
 
     class Meta:

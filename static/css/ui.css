@@ -1081,7 +1081,6 @@ a[class*=card]:hover .title {
 }
 
 .filter-group {
-  display: flex;
   margin-right: 10px;
   border-bottom: 1px solid #e4e4e4;
 }
